@@ -1,0 +1,231 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/5/2017 6:33:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PED-UDP_DB"
+  DTS:CreatorName="PEDEUI\Carlos.Gonzalez"
+  DTS:DTSID="{FC2CACA0-CE5F-4A0D-9C42-5DFC6329EE55}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.5000.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Validation"
+  DTS:PackageType="5"
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{971058BF-C438-459C-8663-FD8C51E97C09}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DataValidationReport]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A1529CFD-BFD6-4562-8758-AFE18C981253}"
+      DTS:ObjectName="DataValidationReport">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Data Source="+ @[$Project::DataValidation_ServerName] +";Initial Catalog="+ @[$Project::DataValidation_InitialCatalog] +";Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;"</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::DataValidation_InitialCatalog]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::DataValidation_ServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=PED-UDP_DB;Initial Catalog=tempTest;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Build Validation QUERIES"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B31ED342-625B-4335-B15C-AB545889E897}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Build Validation QUERIES"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A1529CFD-BFD6-4562-8758-AFE18C981253}"
+          SQLTask:SqlStatementSource="&#x9;&#x9;INSERT INTO [validation].[Queries]&#xA;        SELECT  --Template ,&#xA;        --Field ,&#xA;        --PrimaryKeyField ,&#xA;        --isRequired ,&#xA;        --ExpectedType ,&#xA;        --ExpectedValues ,&#xA;        --ExpectedLength ,&#xA;        --ExpectedFormat ,&#xA;        --Expression ,&#xA;        --OutputMessage,&#xA;                'INSERT INTO validation.ValidationOutput([FileName], [TabName], [TeacherLastName], [TeacherFirstName], [TeacherMiddleName], [Field], [ErrorMessage], [ValidationType]) '&#xA;                + 'SELECT DISTINCT [File Name], [Tab Name], '&#xA;                + CAST(ReportField AS NVARCHAR(200)) &#xA;&#x9;&#x9;--+ ', '&#xA;&#x9;&#x9;--+ CAST(PrimaryKeyField AS NVARCHAR(200))&#xA;                + ', ''' + CAST(Field AS NVARCHAR(50)) + ''', '&#xA;                + CAST(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Expression,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  'REPLACE_ME_COLUMN',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  '['&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  + CAST(Field AS NVARCHAR(200))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  + ']'),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   'REPLACE_ME_MESSAGE',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   CAST(OutputMessage AS NVARCHAR(200))),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   'REPLACE_ME_TEMPLATE',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   '['&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   + CAST(Template AS NVARCHAR(50))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   + ']'),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   'REPLACE_ME_PRIMARY_KEY_FLTER',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   CAST(PrimaryKeyFilter AS NVARCHAR(200))),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   'REPLACE_ME_PRIMARY_KEY_FIELD',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   CAST(PrimaryKeyField AS NVARCHAR(200))),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;'REPLACE_ME_EXPECTED_VALUES',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;CASE WHEN CHARINDEX(' to ', [ExpectedValues]) = 0 AND CHARINDEX('&gt;', [ExpectedValues]) = 0 AND CHARINDEX('List of all', [ExpectedValues]) = 0 THEN [ExpectedValues] ELSE '['+CAST(Field AS NVARCHAR(200))+']' END),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;'REPLACE_ME_BETWEEN_VALUES',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;CASE WHEN CHARINDEX(' to ', [ExpectedValues]) &gt; 0 THEN REPLACE([ExpectedValues],' to ', ' AND ') ELSE '0.0 AND 1.0' END),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;'REPLACE_ME_GTE_VALUES',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;CASE WHEN CHARINDEX('&gt;', [ExpectedValues]) &gt; 0 THEN [ExpectedValues] ELSE '&lt;0' END&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;) AS NVARCHAR(2000))&#xA;                + ' OutputMessage, '''&#xA;&#x9;&#x9;&#x9;&#x9;+ COALESCE(TFR.ValidationType, '')&#xA;&#x9;&#x9;&#x9;&#x9;+''' ValidationType FROM staging.['&#xA;                + CAST(Template AS NVARCHAR(50))&#xA;                + '] A JOIN validation.TemplateField C ON C.TemplateFieldId = '&#xA;                + CAST(TF.TemplateFieldId AS NVARCHAR(5)) + ' WHERE LEN('&#xA;                + CAST(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Expression,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  'REPLACE_ME_COLUMN',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  '['&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  + CAST(Field AS NVARCHAR(200))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  + ']'),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   'REPLACE_ME_MESSAGE',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   CAST(OutputMessage AS NVARCHAR(200))),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   'REPLACE_ME_TEMPLATE',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   '['&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   + CAST(Template AS NVARCHAR(50))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   + ']'),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   'REPLACE_ME_PRIMARY_KEY_FLTER',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   CAST(PrimaryKeyFilter AS NVARCHAR(200))),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   'REPLACE_ME_PRIMARY_KEY_FIELD',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;   CAST(PrimaryKeyField AS NVARCHAR(200))),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;'REPLACE_ME_EXPECTED_VALUES',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;CASE WHEN CHARINDEX(' to ', [ExpectedValues]) = 0 AND CHARINDEX('&gt;', [ExpectedValues]) = 0 AND CHARINDEX('List of all', [ExpectedValues]) = 0 THEN [ExpectedValues] ELSE '['+CAST(Field AS NVARCHAR(200))+']' END),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;'REPLACE_ME_BETWEEN_VALUES',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;CASE WHEN CHARINDEX(' to ', [ExpectedValues]) &gt; 0 THEN REPLACE([ExpectedValues],' to ', ' AND ') ELSE '0.0 AND 1.0' END),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;'REPLACE_ME_GTE_VALUES',&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;CASE WHEN CHARINDEX('&gt;', [ExpectedValues]) &gt; 0 THEN [ExpectedValues] ELSE '&gt;-1' END) AS NVARCHAR(2000))&#xA;                +') &gt; 1  AND '''&#xA;&#x9;&#x9;&#x9;&#x9;+ COALESCE(TFR.ValidationType, '') +&#xA;&#x9;&#x9;&#x9;&#x9;+''' IN(''Error'',''Warning'') '&#xA;&#x9;&#x9;&#x9;&#x9;+';' Qry&#xA;        FROM    validation.TemplateFieldRule TFR&#xA;                JOIN validation.TemplateField TF ON TFR.TemplateFieldId = TF.TemplateFieldId&#xA;                JOIN validation.[Rule] R ON R.RuleId = TFR.RuleId&#xA;&#x9;&#x9;--WHERE TFR.ValidationType IN ('Error','Warning')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute Validation Queries"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A55646B0-9091-47EE-8250-6C246693F7F4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute Validation Queries"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A1529CFD-BFD6-4562-8758-AFE18C981253}"
+          SQLTask:SqlStatementSource="DECLARE @i INT = 1 ,&#xA;    @MaxI INT ,&#xA;    @Query NVARCHAR(MAX);&#xA;&#xA;SELECT  @MaxI = COUNT(*)&#xA;FROM    validation.Queries&#xA;&#xA;WHILE @i &lt;= @MaxI&#xA;    BEGIN&#xA;        SELECT  @Query = Query&#xA;        FROM    validation.Queries&#xA;        WHERE   Queryid = @i&#xA;        EXEC(@Query)&#xA;&#xA;        SET @i = @i + 1;&#xA;    END" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Set count of Errors and Warning per teacher"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{05280446-B5FD-496F-A094-84C585760694}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Set count of Errors and Warning per teacher"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A1529CFD-BFD6-4562-8758-AFE18C981253}"
+          SQLTask:SqlStatementSource="UPDATE  A&#xA;SET     A.ErrorRows = B.ErrorRows ,&#xA;        A.WarningRows = B.WarningRows&#xA;FROM    validation.ValidationOutput A&#xA;        JOIN ( SELECT   [FileName] ,&#xA;                        [TabName] ,&#xA;                        [TeacherLastName] ,&#xA;                        [TeacherFirstName] ,&#xA;                        [TeacherMiddleName] ,&#xA;                        COUNT(DISTINCT CASE WHEN ValidationType = 'Error' THEN Field + ErrorMessage&#xA;                                   ELSE NULL&#xA;                              END) ErrorRows ,&#xA;                        COUNT(DISTINCT CASE WHEN ValidationType = 'Warning' THEN Field + ErrorMessage&#xA;                                   ELSE NULL&#xA;                              END) WarningRows&#xA;               FROM     validation.ValidationOutput&#xA;               GROUP BY [TeacherLastName] ,&#xA;                        [TeacherFirstName] ,&#xA;                        [TeacherMiddleName] ,&#xA;                        [FileName] ,&#xA;                        [TabName]&#xA;             ) B ON A.[TeacherLastName] = B.[TeacherLastName]&#xA;                    AND A.[TeacherFirstName] = B.[TeacherFirstName]&#xA;                    AND A.[TeacherMiddleName] = B.[TeacherMiddleName]&#xA;                    AND A.[FileName] = B.[FileName]&#xA;                    AND A.[TabName] = B.[TabName]&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Last Validation Results"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{69C418B1-7143-42C0-BA7C-ECC9CC8AEF59}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Last Validation Results"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A1529CFD-BFD6-4562-8758-AFE18C981253}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE validation.ValidationOutput;&#xA;TRUNCATE TABLE validation.Queries;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{39975DE3-7559-4FB2-B734-F366E3D1916A}"
+      DTS:From="Package\Build Validation QUERIES"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Execute Validation Queries" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{E73E5E2C-D3B2-47B8-9E78-913D285E9874}"
+      DTS:From="Package\Truncate Last Validation Results"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Build Validation QUERIES" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{F8318DF6-D92E-4C5D-AC19-44FA700DEDF4}"
+      DTS:From="Package\Execute Validation Queries"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Set count of Errors and Warning per teacher" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="198,42"
+          Id="Package\Build Validation QUERIES"
+          TopLeft="50.5,107.5" />
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Execute Validation Queries"
+          TopLeft="47.5,209.5" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\Set count of Errors and Warning per teacher"
+          TopLeft="5.50000000000006,311.5" />
+        <NodeLayout
+          Size="230,42"
+          Id="Package\Truncate Last Validation Results"
+          TopLeft="34.5,5.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="149.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="149.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="149.5,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

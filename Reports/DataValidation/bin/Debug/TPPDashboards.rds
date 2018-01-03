@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="TPPDashboards">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=PED-UDP_DB;Initial Catalog=tempTest</ConnectString>
+    <IntegratedSecurity>true</IntegratedSecurity>
+    <Prompt>Specify a user name and password for data source NMReportMetrics</Prompt>
+  </ConnectionProperties>
+  <DataSourceID>d91050ba-877f-4cc5-ace0-f5a447bd8768</DataSourceID>
+</RptDataSource>

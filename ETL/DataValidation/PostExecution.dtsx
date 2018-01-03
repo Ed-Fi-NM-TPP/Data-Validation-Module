@@ -1,0 +1,497 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/5/2017 6:33:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PED-UDP_DB"
+  DTS:CreatorName="PEDEUI\Carlos.Gonzalez"
+  DTS:DTSID="{B3F45047-C5EC-4EA6-9672-432025616DD8}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.5000.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="PostExecution"
+  DTS:PackageType="5"
+  DTS:VersionBuild="80"
+  DTS:VersionGUID="{23C7B05E-E03D-4E3E-AE14-F878686A2E39}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DataValidationReport]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{546AB48B-7E1D-451A-8444-E6A5096B0332}"
+      DTS:ObjectName="DataValidationReport">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Data Source="+ @[$Project::DataValidation_ServerName] +";Initial Catalog="+ @[$Project::DataValidation_InitialCatalog] +";Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;"</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::DataValidation_InitialCatalog]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::DataValidation_ServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=PED-UDP_DB;Initial Catalog=DataValidationDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{64F1E153-E073-49A4-B1AD-210308F4B0B7}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::FailedlOutputDirectory]  +  @[User::FileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FailDestinationFile">
+      <DTS:VariableValue
+        DTS:DataType="8">\\10.15.22.132\UPDFiles\Processed EPP Files\Contains Errors_Warning\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B74785A7-67EB-49CF-8316-8A553562BF28}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FileName">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E7C082C1-64A8-4ED8-B916-BC277451F2C8}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::UNM_ExcelFilePath] + &quot;Results&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Folder_Destination">
+      <DTS:VariableValue
+        DTS:DataType="8">\\10.15.22.132\UPDFiles\New EPP Files\Results</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8EC9E57F-ACBB-407C-9E49-C5152BE6EE22}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::UNM_ExcelFilePath] +  @[User::FileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceFile">
+      <DTS:VariableValue
+        DTS:DataType="8">\\10.15.22.132\UPDFiles\New EPP Files\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E2CE361A-962E-44D4-9DF0-E0915D5887BC}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::SuccessfulOutputDirectory]  +  @[User::FileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SuccessDestinationFile">
+      <DTS:VariableValue
+        DTS:DataType="8">\\10.15.22.132\UPDFiles\Processed EPP Files\Validated\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FAC6F59C-BB58-4BFD-A4EA-F18F58FAF53E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ValidationData">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach File in Folder"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:DelayValidation="True"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{55c2d79e-9f23-44c8-a566-c3dad56351e2}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach File in Folder">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{2354f112-51cf-40de-8854-c23b84b28310}"
+        DTS:ObjectName="{0646E268-FE24-45F4-8743-B24425EF1D4F}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[$Project::UNM_ExcelFilePath]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="\\10.15.22.132\UPDFiles\New EPP Files\" />
+            <FEFEProperty
+              FileSpec="*.*" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach File in Folder\Get Rows in ValidationOutput"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{10F573BE-7A48-43ED-9655-4352AFB1E7F3}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Rows in ValidationOutput"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{546AB48B-7E1D-451A-8444-E6A5096B0332}"
+              SQLTask:SqlStatementSource="SELECT COUNT(*) number FROM validation.ValidationOutput WHERE ValidationType = 'Error' AND FileName = ?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ValidationData" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::FileName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="0" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach File in Folder\Move File to Sucess Folder"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{ba29a4c9-fc12-4d3c-b194-8d9c359186b3}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Move File to Sucess Folder"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="RenameFile"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="User::SourceFile"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::SuccessDestinationFile"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach File in Folder\Sequence Container"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{51577054-33E2-452A-BAD5-F0D0E2D0B3BB}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Sequence Container">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Foreach File in Folder\Sequence Container\Move File to Fail Folder"
+              DTS:CreationName="Microsoft.FileSystemTask"
+              DTS:Description="File System Task"
+              DTS:DTSID="{90d8c998-4a39-4000-885d-332ace911794}"
+              DTS:ExecutableType="Microsoft.FileSystemTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Move File to Fail Folder"
+              DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <FileSystemData
+                  TaskOperationType="RenameFile"
+                  TaskOverwriteDestFile="True"
+                  TaskSourcePath="User::SourceFile"
+                  TaskIsSourceVariable="True"
+                  TaskDestinationPath="User::FailDestinationFile"
+                  TaskIsDestinationVariable="True" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach File in Folder.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{1CB7397A-C3C5-43F9-BA58-8A0AE5B593D2}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[User::ValidationData] &gt; 0"
+          DTS:From="Package\Foreach File in Folder\Get Rows in ValidationOutput"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach File in Folder\Sequence Container" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach File in Folder.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{0F70BF6D-E575-41B3-B292-686BBE0536A1}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[User::ValidationData] == 0"
+          DTS:From="Package\Foreach File in Folder\Get Rows in ValidationOutput"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Foreach File in Folder\Move File to Sucess Folder" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{E3229F49-3C06-46A2-BF53-CEF8D36CEEBB}"
+          DTS:ObjectName="{E3229F49-3C06-46A2-BF53-CEF8D36CEEBB}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::FileName" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Trigger Error Report Email"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B1CEBB01-553A-4903-B978-865F245082D9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Trigger Error Report Email"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{546AB48B-7E1D-451A-8444-E6A5096B0332}"
+          SQLTask:SqlStatementSource="EXEC ReportServer.dbo.AddEvent @EventType='TimedSubscription',@EventData='2b1fbfd9-5017-4c2c-a451-ce6b8c8abe5d'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Trigger Success Report Email"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{a4d74600-5bc5-473b-b09d-5efaaf646c7a}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Trigger Success Report Email"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{546AB48B-7E1D-451A-8444-E6A5096B0332}"
+          SQLTask:SqlStatementSource="EXEC ReportServer.dbo.AddEvent @EventType='TimedSubscription',@EventData='011a9ce0-0fa0-4373-b912-e46ed59e7943'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{86DDF0A3-4BE5-452C-B4CD-10EA33D4C62D}"
+      DTS:EvalOp="3"
+      DTS:Expression="LEN(@[User::FileName]) &gt; 1 &amp;&amp; @[User::ValidationData] &gt; 0"
+      DTS:From="Package\Foreach File in Folder"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Trigger Error Report Email" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{1BD1DD08-3FE0-4F34-8287-03940FF4958B}"
+      DTS:EvalOp="3"
+      DTS:Expression="LEN(@[User::FileName]) &gt; 1 &amp;&amp; @[User::ValidationData] == 0"
+      DTS:From="Package\Foreach File in Folder"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Trigger Success Report Email" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="217,42"
+          Id="Package\Foreach File in Folder\Get Rows in ValidationOutput"
+          TopLeft="258.5,5.5" />
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Foreach File in Folder\Move File to Sucess Folder"
+          TopLeft="265,159.5" />
+        <NodeLayout
+          Size="188,42"
+          Id="Package\Foreach File in Folder\Sequence Container\Move File to Fail Folder"
+          TopLeft="5.5,5.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="199,103"
+          Size="199,146"
+          Id="Package\Foreach File in Folder\Sequence Container"
+          TopLeft="5.50000000000006,107.5" />
+        <EdgeLayout
+          Id="Package\Foreach File in Folder.PrecedenceConstraints[Constraint]"
+          TopLeft="332.166666666667,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-227.166666666667,60"
+              Start="0,0"
+              End="-227.166666666667,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.263494967978" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.263494967978"
+                    Point2="0,24.263494967978"
+                    Point3="-4,24.263494967978" />
+                  <mssgle:LineSegment
+                    End="-223.166666666667,24.263494967978" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-223.166666666667,24.263494967978"
+                    Point2="-227.166666666667,24.263494967978"
+                    Point3="-227.166666666667,28.263494967978" />
+                  <mssgle:LineSegment
+                    End="-227.166666666667,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-121.583333333333,29.263494967978,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach File in Folder.PrecedenceConstraints[Constraint 1]"
+          TopLeft="401.833333333333,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-34.8333333333333,112"
+              Start="0,0"
+              End="-34.8333333333333,104.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.291857273559" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,41.291857273559"
+                    Point2="0,45.291857273559"
+                    Point3="-4,45.291857273559" />
+                  <mssgle:LineSegment
+                    End="-30.8333333333333,45.291857273559" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-30.8333333333333,45.291857273559"
+                    Point2="-34.8333333333333,45.291857273559"
+                    Point3="-34.8333333333333,49.291857273559" />
+                  <mssgle:LineSegment
+                    End="-34.8333333333333,104.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-25.4166666666667,50.291857273559,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="481,309"
+          Size="481,352"
+          Id="Package\Foreach File in Folder"
+          TopLeft="136.5,5.5" />
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Trigger Error Report Email"
+          TopLeft="5.50000000000006,417.5" />
+        <NodeLayout
+          Size="216,42"
+          Id="Package\Trigger Success Report Email"
+          TopLeft="269,417.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="298.166666666667,357.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-191.166666666667,60"
+              Start="0,0"
+              End="-191.166666666667,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.1193535018649" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.1193535018649"
+                    Point2="0,24.1193535018649"
+                    Point3="-4,24.1193535018649" />
+                  <mssgle:LineSegment
+                    End="-187.166666666667,24.1193535018649" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-187.166666666667,24.1193535018649"
+                    Point2="-191.166666666667,24.1193535018649"
+                    Point3="-191.166666666667,28.1193535018649" />
+                  <mssgle:LineSegment
+                    End="-191.166666666667,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-103.583333333333,29.1193535018649,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="455.833333333333,357.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-78.8333333333333,60"
+              Start="0,0"
+              End="-78.8333333333333,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.1193535018649" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.1193535018649"
+                    Point2="0,24.1193535018649"
+                    Point3="-4,24.1193535018649" />
+                  <mssgle:LineSegment
+                    End="-74.8333333333333,24.1193535018649" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-74.8333333333333,24.1193535018649"
+                    Point2="-78.8333333333333,24.1193535018649"
+                    Point3="-78.8333333333333,28.1193535018649" />
+                  <mssgle:LineSegment
+                    End="-78.8333333333333,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-47.4166666666667,29.1193535018649,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
